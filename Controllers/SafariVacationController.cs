@@ -17,7 +17,7 @@ namespace SafariVacationAPI.Controllers
       var db = new SafariVacationContext();
       return db.SeenAnimals;
     }
-    [HttpPost]
+    [HttpPost("{id}")]
     public ActionResult<SeenAnimals> Post([FromBody] SeenAnimals animals)
     {
       var db = new SafariVacationContext();
@@ -25,13 +25,17 @@ namespace SafariVacationAPI.Controllers
       db.SaveChanges();
       return animals;
     }
-    [HttpPut]
-    public ActionResult<SeenAnimals> Put([FromBody] SeenAnimals location)
+    [HttpPut("{id}")]
+    public ActionResult<SeenAnimals> Put([FromRoute] int id, [FromBody] SeenAnimals updatedData)
     {
       var db = new SafariVacationContext();
-      db.SeenAnimals.Add(location);
+      var newData = db.SeenAnimals.FirstOrDefault(animal => animal.Id == id);
+
+      newData.Species = updatedData.Species;
+      newData.CountOfTimesSeen = updatedData.CountOfTimesSeen;
+      newData.LocationOfLastSeen = updatedData.LocationOfLastSeen;
       db.SaveChanges();
-      return location;
+      return newData;
     }
   }
 }
