@@ -7,5 +7,8 @@ namespace SafariVacationAPI.Models
     public int CountOfTimesSeen { get; set; }
     public string LocationOfLastSeen { get; set; }
 
+    internal class species
+    {
+    }
   }
 }

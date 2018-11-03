@@ -37,5 +37,22 @@ namespace SafariVacationAPI.Controllers
       db.SaveChanges();
       return newData;
     }
+    [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
+    {
+      // Remove the item from the database
+      var db = new SafariVacationContext();
+      var delete = db.SeenAnimals.FirstOrDefault(c => c.Id == id);
+      if (delete == null)
+      {
+        return NotFound();
+      }
+      db.SeenAnimals.Remove(delete);
+      // Save the changes 
+      db.SaveChanges();
+      // return ????
+      return Ok();
+    }
+
   }
 }
